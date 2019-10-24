@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Yuntech App</string>
+    <string name="navigation_drawer_open">開啟導航抽屜</string>
+    <string name="navigation_drawer_close">關閉導航抽屜</string>
+    <string name="nav_header_title">未登入</string>
+    <string name="nav_header_subtitle">請先登入</string>
+    <string name="nav_header_desc">標題導航欄</string>
+    <string name="action_about">關於</string>
+
+    <string name="menu_login">登入</string>
+    <string name="menu_profile">個人資訊</string>
+    <string name="menu_course">課表</string>
+    <string name="menu_score">學期成績</string>
+    <string name="menu_map">校園地圖</string>
+    <string name="menu_news">校園消息</string>
+    <string name="menu_logout">登出</string>
+</resources>

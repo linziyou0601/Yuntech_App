@@ -1,0 +1,182 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scoreCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="2dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/layout_score_header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_header_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="93.78"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="48sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="學業平均"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_header_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="42sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="名次"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/layout_score_sep1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/layout_score_header1"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:id="@+id/layout_score_header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_score_sep1"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_header_credits1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="實修學分"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_header_credits2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="實得學分"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_header_behavior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="85"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="操行成績"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

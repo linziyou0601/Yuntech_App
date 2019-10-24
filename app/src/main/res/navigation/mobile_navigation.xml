@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_login">
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.yuntechstudent.yuntechapp.ui.login.LoginFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/nav_course"
+        android:name="com.yuntechstudent.yuntechapp.ui.course.CourseFragment"
+        android:label="@string/menu_course"
+        tools:layout="@layout/fragment_course" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.yuntechstudent.yuntechapp.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_nav_course"
+            app:destination="@id/nav_course" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_tools"
+            app:destination="@id/nav_score" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_share"
+            app:destination="@id/nav_map" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_send"
+            app:destination="@id/nav_news" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_score"
+        android:name="com.yuntechstudent.yuntechapp.ui.score.ScoreFragment"
+        android:label="@string/menu_score"
+        tools:layout="@layout/fragment_score" />
+
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.yuntechstudent.yuntechapp.ui.map.MapFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="com.yuntechstudent.yuntechapp.ui.news.NewsFragment"
+        android:label="@string/menu_news"
+        tools:layout="@layout/fragment_news" />
+</navigation>

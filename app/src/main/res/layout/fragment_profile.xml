@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FCFCFC">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/view_profile_image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#CCCCCC"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/nav_header_desc"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/yuntechbobo" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="雲寶寶"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/profile_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_name"
+                android:text="雲林科技大學"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#CCCCCC"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/profile_stuNum"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="M88888888"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteY="555dp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="班級資訊"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="555dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="false">
+
+                <RelativeLayout
+                    android:id="@+id/rev_profile2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/layout_class"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="學制／班級"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_class"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_double_major"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/layout_class"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="輔系、雙主修 ／學程"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_double_major"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_mainteacher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/layout_double_major"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="導師"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_mainteacher"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="入學資訊"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="555dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="false">
+
+                <RelativeLayout
+                    android:id="@+id/rev_profile3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/layout_graduation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="入學學年／畢業學年"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_graduation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_entrance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/layout_graduation"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="入學管道／入學身分"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_entrance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_academic_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/layout_entrance"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="-5dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="2dp"
+                            android:text="在學狀況"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/var_profile_academic_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_profile"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/nav_course"
+            android:icon="@drawable/ic_menu_grid_on"
+            android:title="@string/menu_course" />
+        <item
+            android:id="@+id/nav_score"
+            android:icon="@drawable/ic_menu_score"
+            android:title="@string/menu_score" />
+    </group>
+
+    <item android:title="學校">
+        <menu>
+            <item
+                android:id="@+id/nav_map"
+                android:icon="@drawable/ic_menu_map"
+                android:title="@string/menu_map" />
+            <item
+                android:id="@+id/nav_news"
+                android:icon="@drawable/ic_menu_news"
+                android:title="@string/menu_news" />
+        </menu>
+    </item>
+
+    <item android:title="系統">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="@string/menu_logout" />
+        </menu>
+    </item>
+
+</menu>

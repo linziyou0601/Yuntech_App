@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/course_detail_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/var_course_zh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="台灣政商家族史"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/var_course_en"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="History of The Great Political-Economic Families in Taiwan"
+        android:textColor="@color/md_disabled_text_light_theme"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/md_btn_selected_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:text="教師："
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/var_course_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="施學琦,林宗德"
+            android:textColor="@color/mr_cast_meta_default_background"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="15dp"
+        app:cardBackgroundColor="#F6F6F6"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/layout_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:text="學期課號／系所課號"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/var_course_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="8632／YUST3067"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_credits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_number"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:text="學分組合（講授－實習－學分）"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/var_course_credit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="2-0-2"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_credits"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:text="開課班級／班別"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/var_course_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="通識中心／L"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_class"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:text="星期／節次／教室"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/var_course_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="1-GH/DH303"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_markup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_schedule"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="2dp"
+                    android:text="備註"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/var_course_markup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="1-GH/DH303"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

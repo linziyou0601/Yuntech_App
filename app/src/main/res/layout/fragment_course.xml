@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/course_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="課表載入中"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/course_finishing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/w_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1.1"
+                android:gravity="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/w_mon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="週一"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/w_tue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="週二"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/w_wed"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="週三"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/w_thu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="週四"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/w_fri"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mr_cast_meta_art_size"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="週五"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/hour_A"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="08:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_A"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="A"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_B"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="09:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_B"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="B"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_C"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="10:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_C"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="C"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_D"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="11:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_D"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="D"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_Y"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="12:10"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_Y"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="Y"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_E"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="13:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_E"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="E"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_F"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="14:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_F"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="F"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_G"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="15:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_G"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="G"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_H"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="16:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_H"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="H"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_Z"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="17:10"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_Z"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="Z"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/column_mon"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/column_tue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/column_wed"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/column_thu"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/column_fri"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/course_column"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
