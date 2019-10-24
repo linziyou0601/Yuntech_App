@@ -1,6 +1,5 @@
 package com.yuntechstudent.yuntechapp;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -19,10 +18,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
 
+
+//Beta 1.2 2019/10/25 02:49
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -103,12 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new MaterialAlertDialogBuilder(this, R.style.MyThemeOverlayAlertDialog)
                         .setTitle("登出")
                         .setMessage("確定要登出？")
-                        .setPositiveButton("登出", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                loginViewModel.refuseAuthentication(false);
-                            }
-                        })
+                        .setPositiveButton("登出", (dialog, which) -> loginViewModel.refuseAuthentication(false))
                         .setNegativeButton("取消", null)
                         .show();
                 break;
@@ -146,11 +142,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "再按一次返回關閉程式", Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }
 }
