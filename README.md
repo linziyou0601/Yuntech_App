@@ -8,4 +8,4 @@
 - 最新消息、雲科焦點
 
 ## Badge
-![GitHub last commit](https://img.shields.io/github/last-commit/linziyou0601/YunTech_App?style=for-the-badge)![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/linziyou0601/YunTech_App?include_prereleases&style=for-the-badge)![](https://img.shields.io/badge/language-java-blue.svg?style=for-the-badge)![](https://img.shields.io/badge/platform-android 6+ -green.svg?style=for-the-badge)![](https://img.shields.io/badge/author-linziyou0601-red.svg?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/linziyou0601/YunTech_App?style=for-the-badge)![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/linziyou0601/YunTech_App?include_prereleases&style=for-the-badge)![](https://img.shields.io/badge/language-java-blue.svg?style=for-the-badge)![](https://img.shields.io/badge/platform-android%206%2B-green.svg?style=for-the-badge)![](https://img.shields.io/badge/author-linziyou0601-red.svg?style=for-the-badge)
