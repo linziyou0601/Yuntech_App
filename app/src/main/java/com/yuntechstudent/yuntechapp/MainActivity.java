@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_login, R.id.nav_course, R.id.nav_profile,
-                R.id.nav_score, R.id.nav_map, R.id.nav_news, R.id.nav_logout)
+                R.id.nav_login, R.id.nav_course, R.id.nav_profile, R.id.nav_score,
+                R.id.nav_graduate, R.id.nav_map, R.id.nav_news, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_score:
                 fragment = R.id.nav_score;
+                break;
+            case R.id.nav_graduate:
+                fragment = R.id.nav_graduate;
                 break;
             case R.id.nav_map:
                 fragment = R.id.nav_map;

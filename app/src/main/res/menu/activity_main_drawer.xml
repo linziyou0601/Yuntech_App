@@ -16,6 +16,10 @@
             android:id="@+id/nav_score"
             android:icon="@drawable/ic_menu_score"
             android:title="@string/menu_score" />
+        <item
+            android:id="@+id/nav_graduate"
+            android:icon="@drawable/ic_menu_graduate"
+            android:title="@string/menu_graduate" />
     </group>
 
     <item android:title="學校">

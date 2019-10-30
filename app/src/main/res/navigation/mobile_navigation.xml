@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_nav_profile_to_nav_send"
             app:destination="@id/nav_news" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_graduate"
+            app:destination="@id/nav_graduate" />
     </fragment>
 
     <fragment
@@ -41,6 +44,12 @@
         android:name="com.yuntechstudent.yuntechapp.ui.score.ScoreFragment"
         android:label="@string/menu_score"
         tools:layout="@layout/fragment_score" />
+
+    <fragment
+        android:id="@+id/nav_graduate"
+        android:name="com.yuntechstudent.yuntechapp.ui.graduate.GraduateFragment"
+        android:label="@string/menu_graduate"
+        tools:layout="@layout/fragment_graduate" />
 
     <fragment
         android:id="@+id/nav_map"
