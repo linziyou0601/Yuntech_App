@@ -15,16 +15,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationView;
 import com.yuntechstudent.yuntechapp.MainActivity;
 import com.yuntechstudent.yuntechapp.R;
 import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.navigation.NavigationView;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,6 +32,8 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
 
 
 public class CourseFragment extends Fragment {
@@ -46,7 +47,7 @@ public class CourseFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_course, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
 
         //--------------------監聽View Object--------------------//
@@ -55,19 +56,13 @@ public class CourseFragment extends Fragment {
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        break;
-                    default:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_login_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_login);
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(!authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_login_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_login);
             }
         });
 
@@ -117,14 +112,11 @@ public class CourseFragment extends Fragment {
 
                 final ArrayAdapter<String> semeList = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, courseViewModel.getSemestersList());
                 semeList.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        spinner.setAdapter(semeList);
-                        String seme = courseViewModel.getSemestersList().get(0).toString().replaceAll("(學年第)|(學期)", "");
-                        createCourse(seme, root, conObject);
-                        loadedCourse(root);
-                    }
+                getActivity().runOnUiThread(() -> {
+                    spinner.setAdapter(semeList);
+                    String seme = courseViewModel.getSemestersList().get(0).toString().replaceAll("(學年第)|(學期)", "");
+                    createCourse(seme, root, conObject);
+                    loadedCourse(root);
                 });
             }
         };
@@ -255,12 +247,7 @@ public class CourseFragment extends Fragment {
 
     //--------------------課程放入每日欄位--------------------//
     public void putCourseInColumn(final LinearLayout column, final TextView courseText) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                column.addView(courseText);
-            }
-        });
+        getActivity().runOnUiThread(() -> column.addView(courseText));
     }
 
     //--------------------監聽 課程點擊--------------------//
@@ -271,7 +258,7 @@ public class CourseFragment extends Fragment {
         @Override
         public void onClick(View v){
             //載入中
-            Map detail = (Map) courseDetail.get(s_num);
+            Map detail = courseDetail.get(s_num);
             View course_detail = getLayoutInflater().inflate(R.layout.course_detail, null);
             LinearLayout course_detail_view = course_detail.findViewById(R.id.course_detail_view);
             TextView var_course_zh = course_detail.findViewById(R.id.var_course_zh);

@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.navigation.NavigationView;
 import com.yuntechstudent.yuntechapp.MainActivity;
 import com.yuntechstudent.yuntechapp.R;
 import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
-import com.google.android.material.navigation.NavigationView;
+
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
 
 public class MapFragment extends Fragment {
 
@@ -27,25 +28,19 @@ public class MapFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         mapViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
         View root = inflater.inflate(R.layout.fragment_map, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
         //--------------------監聽View Object--------------------//
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        break;
-                    default:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_login_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_login);
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(!authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_login_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_login);
             }
         });
 

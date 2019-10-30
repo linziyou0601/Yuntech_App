@@ -15,9 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,6 +28,9 @@ import com.yuntechstudent.yuntechapp.R;
 
 import java.util.Map;
 
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.INVALID_AUTHENTICATION;
+
 
 public class LoginFragment extends Fragment {
 
@@ -39,7 +40,7 @@ public class LoginFragment extends Fragment {
         //--------------------取得本視圖、側邊欄視圖--------------------//
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_login, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
 
         //--------------------監聽View Object--------------------//
@@ -53,69 +54,51 @@ public class LoginFragment extends Fragment {
         final Switch switchKeepLogin = root.findViewById(R.id.switch_keep_login);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_main_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_profile);
-                        break;
-                    case INVALID_AUTHENTICATION:
-                        //提示登入失敗
-                        new MaterialAlertDialogBuilder(getContext(), R.style.MyThemeOverlayAlertDialog)
-                                .setTitle("登入失敗")
-                                .setMessage("可能是帳號、密碼錯誤，或目前連線狀態有問題！")
-                                .setPositiveButton("確認", null)
-                                .show();
-                        loginViewModel.refuseAuthentication(true);
-                        break;
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_main_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_profile);
+            }else if(authenticationState.equals(INVALID_AUTHENTICATION)){
+                //提示登入失敗
+                new MaterialAlertDialogBuilder(getContext(), R.style.MyThemeOverlayAlertDialog)
+                        .setTitle("登入失敗")
+                        .setMessage("可能是帳號、密碼錯誤，或目前連線狀態有問題！")
+                        .setPositiveButton("確認", null)
+                        .show();
+                loginViewModel.refuseAuthentication(true);
             }
         });
 
         //---監聽 profileName<String>---//
-        loginViewModel.getProfileName().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!text_userName.getText().toString().equals(s)) text_userName.setText(s);
-            }
+        loginViewModel.getProfileName().observe(this, s -> {
+            if(!text_userName.getText().toString().equals(s)) text_userName.setText(s);
         });
 
         //---監聽 profileMajor<String>---//
-        loginViewModel.getProfileMajor().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!text_userMajor.getText().toString().equals(s)) text_userMajor.setText(s);
-            }
+        loginViewModel.getProfileMajor().observe(this, s -> {
+            if(!text_userMajor.getText().toString().equals(s)) text_userMajor.setText(s);
         });
 
         //---監聽 profileImage<String>---//
-        loginViewModel.getProfileImage().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!s.equals("")){
-                    Snackbar.make(getView(), "登入成功：" + loginViewModel.getAccount().getValue(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    byte[] decodedString = Base64.decode(s, Base64.NO_WRAP);
-                    user_image.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-                    user_image.setPadding(0, dp2px(15),0,0);
-                }else{
-                    user_image.setImageResource(R.drawable.yuntechbobo);
-                    user_image.setPadding(0, 0,0,0);
-                }
+        loginViewModel.getProfileImage().observe(this, s -> {
+            if(!s.equals("")){
+                Snackbar.make(getView(), "登入成功：" + loginViewModel.getAccount().getValue(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                byte[] decodedString = Base64.decode(s, Base64.NO_WRAP);
+                user_image.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+                user_image.setPadding(0, dp2px(15),0,0);
+            }else{
+                user_image.setImageResource(R.drawable.yuntechbobo);
+                user_image.setPadding(0, 0,0,0);
             }
         });
 
         //---監聽 account<String>---//
-        loginViewModel.getAccount().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!editAccount.getEditableText().toString().equals(s))
-                    editAccount.setText(s);
-            }
+        loginViewModel.getAccount().observe(this, s -> {
+            if(!editAccount.getEditableText().toString().equals(s))
+                editAccount.setText(s);
         });
         editAccount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,12 +112,9 @@ public class LoginFragment extends Fragment {
         });
 
         //---監聽 password<String>---//
-        loginViewModel.getPassword().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!editPassword.getEditableText().toString().equals(s))
-                    editPassword.setText(s);
-            }
+        loginViewModel.getPassword().observe(this, s -> {
+            if(!editPassword.getEditableText().toString().equals(s))
+                editPassword.setText(s);
         });
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -148,42 +128,26 @@ public class LoginFragment extends Fragment {
         });
 
         //---監聽 keepAccount<Boolean>---//
-        loginViewModel.getKeepAccount().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean s) {
-                if(switchKeepAccount.isChecked() != s) switchKeepAccount.setChecked(s);
-            }
+        loginViewModel.getKeepAccount().observe(this, s -> {
+            if(switchKeepAccount.isChecked() != s) switchKeepAccount.setChecked(s);
         });
-        switchKeepAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginViewModel.setKeepAccount(((Switch)view).isChecked());
-                if(!((Switch)view).isChecked()) loginViewModel.setKeepLogin(false);
-            }
+        switchKeepAccount.setOnClickListener(view -> {
+            loginViewModel.setKeepAccount(((Switch)view).isChecked());
+            if(!((Switch)view).isChecked()) loginViewModel.setKeepLogin(false);
         });
 
         //---監聽 keepLogin<Boolean>---//
-        loginViewModel.getKeepLogin().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean s) {
-                if(switchKeepLogin.isChecked() != s) switchKeepLogin.setChecked(s);
-            }
+        loginViewModel.getKeepLogin().observe(this, s -> {
+            if(switchKeepLogin.isChecked() != s) switchKeepLogin.setChecked(s);
         });
-        switchKeepLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginViewModel.setKeepLogin(((Switch)view).isChecked());
-                if(((Switch)view).isChecked()) loginViewModel.setKeepAccount(true);
-            }
+        switchKeepLogin.setOnClickListener(view -> {
+            loginViewModel.setKeepLogin(((Switch)view).isChecked());
+            if(((Switch)view).isChecked()) loginViewModel.setKeepAccount(true);
         });
 
         //---監聽 登入按鈕---//
         Button submit = root.findViewById(R.id.button_login);
-        submit.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View arg0) {
-                loginFunc(root);
-            }
-        });
+        submit.setOnClickListener(arg0 -> loginFunc(root));
 
 
         //--------------------設定標題欄項目可見度--------------------//
@@ -220,12 +184,7 @@ public class LoginFragment extends Fragment {
                 Map status = (Map)result.get("status");
                 Map profile = (Map)result.get("data");
                 loginViewModel.authenticate(status, profile);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        unloadingLogin(root);
-                    }
-                });
+                getActivity().runOnUiThread(() -> unloadingLogin(root));
             }
         }.start();
     }

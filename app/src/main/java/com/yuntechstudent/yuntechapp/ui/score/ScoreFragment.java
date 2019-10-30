@@ -12,17 +12,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.yuntechstudent.yuntechapp.MainActivity;
 import com.yuntechstudent.yuntechapp.R;
 import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
-import com.google.android.material.navigation.NavigationView;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
 
 public class ScoreFragment extends Fragment {
 
@@ -43,7 +44,7 @@ public class ScoreFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         scoreViewModel = ViewModelProviders.of(this).get(ScoreViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_score, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
 
         //--------------------監聽View Object--------------------//
@@ -52,19 +53,13 @@ public class ScoreFragment extends Fragment {
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        break;
-                    default:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_login_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_login);
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(!authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_login_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_login);
             }
         });
 
@@ -114,14 +109,11 @@ public class ScoreFragment extends Fragment {
 
                 final ArrayAdapter<String> semeList = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, scoreViewModel.getSemestersList());
                 semeList.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        spinner.setAdapter(semeList);
-                        String seme = scoreViewModel.getSemestersList().get(0).toString().replaceAll("(學年第)|(學期)", "");
-                        createScore(seme, root, conObject);
-                        loadedScore(root);
-                    }
+                getActivity().runOnUiThread(() -> {
+                    spinner.setAdapter(semeList);
+                    String seme = scoreViewModel.getSemestersList().get(0).toString().replaceAll("(學年第)|(學期)", "");
+                    createScore(seme, root, conObject);
+                    loadedScore(root);
                 });
             }
         };
@@ -188,7 +180,7 @@ public class ScoreFragment extends Fragment {
             item.put("card_passDanger", td.get(9).text());
             scoreList.add(item);
         }
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.scoreRecyView);
+        RecyclerView recyclerView = root.findViewById(R.id.scoreRecyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new scoreItemAdapter(getContext(), scoreList));
     }

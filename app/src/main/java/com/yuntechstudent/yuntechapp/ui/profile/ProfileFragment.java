@@ -10,19 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.navigation.NavigationView;
 import com.yuntechstudent.yuntechapp.MainActivity;
 import com.yuntechstudent.yuntechapp.R;
 import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.Map;
+
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
 
 public class ProfileFragment extends Fragment {
 
@@ -34,7 +34,7 @@ public class ProfileFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
         //--------------------監聽View Object--------------------//
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
@@ -44,59 +44,41 @@ public class ProfileFragment extends Fragment {
         final ImageView profile_image = root.findViewById(R.id.profile_image);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        break;
-                    default:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_login_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_login);
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(!authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_login_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_login);
             }
         });
 
         //---監聽 account<String>---//
-        loginViewModel.getAccount().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!profile_stuNum.getText().toString().equals(s))
-                    profile_stuNum.setText(s);
-            }
+        loginViewModel.getAccount().observe(this, s -> {
+            if(!profile_stuNum.getText().toString().equals(s))
+                profile_stuNum.setText(s);
         });
 
         //---監聽 profileName<String>---//
-        loginViewModel.getProfileName().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!profile_name.getText().toString().equals(s)) profile_name.setText(s);
-            }
+        loginViewModel.getProfileName().observe(this, s -> {
+            if(!profile_name.getText().toString().equals(s)) profile_name.setText(s);
         });
 
         //---監聽 profileMajor<String>---//
-        loginViewModel.getProfileMajor().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!profile_major.getText().toString().equals(s)) profile_major.setText(s);
-            }
+        loginViewModel.getProfileMajor().observe(this, s -> {
+            if(!profile_major.getText().toString().equals(s)) profile_major.setText(s);
         });
 
         //---監聽 profileImage<String>---//
-        loginViewModel.getProfileImage().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!s.equals("")){
-                    byte[] decodedString = Base64.decode(s, Base64.NO_WRAP);
-                    profile_image.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-                    profile_image.setPadding(0, dp2px(25),0,0);
-                }else{
-                    profile_image.setImageResource(R.drawable.yuntechbobo);
-                    profile_image.setPadding(0, 0,0,0);
-                }
+        loginViewModel.getProfileImage().observe(this, s -> {
+            if(!s.equals("")){
+                byte[] decodedString = Base64.decode(s, Base64.NO_WRAP);
+                profile_image.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+                profile_image.setPadding(0, dp2px(25),0,0);
+            }else{
+                profile_image.setImageResource(R.drawable.yuntechbobo);
+                profile_image.setPadding(0, 0,0,0);
             }
         });
 
@@ -133,16 +115,13 @@ public class ProfileFragment extends Fragment {
                 }
 
                 final Map profiles = data;
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        profile_class.setText(profiles.get("profile_class").toString());
-                        profile_double_major.setText(profiles.get("profile_double_major").toString());
-                        profile_mainteacher.setText(profiles.get("profile_mainteacher").toString());
-                        profile_graduation.setText(profiles.get("profile_graduation").toString());
-                        profile_entrance.setText(profiles.get("profile_entrance").toString());
-                        profile_academic_status.setText(profiles.get("profile_academic_status").toString());
-                    }
+                getActivity().runOnUiThread(() -> {
+                    profile_class.setText(profiles.get("profile_class").toString());
+                    profile_double_major.setText(profiles.get("profile_double_major").toString());
+                    profile_mainteacher.setText(profiles.get("profile_mainteacher").toString());
+                    profile_graduation.setText(profiles.get("profile_graduation").toString());
+                    profile_entrance.setText(profiles.get("profile_entrance").toString());
+                    profile_academic_status.setText(profiles.get("profile_academic_status").toString());
                 });
             }
         };

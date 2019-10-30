@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,10 +25,10 @@ import com.yuntechstudent.yuntechapp.MainActivity;
 import com.yuntechstudent.yuntechapp.R;
 import com.yuntechstudent.yuntechapp.ui.login.LoginViewModel;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Map;
+
+import static com.yuntechstudent.yuntechapp.ui.login.LoginViewModel.AuthenticationState.AUTHENTICATED;
 
 public class NewsFragment extends Fragment {
 
@@ -41,25 +40,19 @@ public class NewsFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(getActivity()).get(LoginViewModel.class);
         newsViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_news, container, false);
-        final NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+        final NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
         //--------------------監聽View Object--------------------//
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         //---監聽 authenticationState<LoginViewModel.AuthenticationState>---//
-        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), new Observer<LoginViewModel.AuthenticationState>() {
-            @Override
-            public void onChanged(LoginViewModel.AuthenticationState authenticationState) {
-                switch (authenticationState) {
-                    case AUTHENTICATED:
-                        break;
-                    default:
-                        //更改側邊欄選單
-                        navigationView.getMenu().clear();
-                        navigationView.inflateMenu(R.menu.activity_login_drawer);
-                        //頁面重新導向
-                        navController.navigate(R.id.nav_login);
-                }
+        loginViewModel.authenticationState.observe(getViewLifecycleOwner(), authenticationState -> {
+            if(!authenticationState.equals(AUTHENTICATED)){
+                //更改側邊欄選單
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.activity_login_drawer);
+                //頁面重新導向
+                navController.navigate(R.id.nav_login);
             }
         });
 
@@ -83,20 +76,12 @@ public class NewsFragment extends Fragment {
                 pageNews.add(newsRow);
                 pageNews.add(spotRow);
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadedNews(root);
-                        viewPager2.setAdapter(new ViewPagerAdapter(getContext(), pageNews));
+                getActivity().runOnUiThread(() -> {
+                    loadedNews(root);
+                    viewPager2.setAdapter(new ViewPagerAdapter(getContext(), pageNews));
 
-                        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
-                            @Override
-                            public void onConfigureTab(@NotNull TabLayout.Tab tab, int position) {
-                                tab.setText(TAB_TYPE[position]);
-                            }
-                        });
-                        tabLayoutMediator.attach();
-                    }
+                    TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> tab.setText(TAB_TYPE[position]));
+                    tabLayoutMediator.attach();
                 });
             }
         };
@@ -296,12 +281,7 @@ public class NewsFragment extends Fragment {
             new Thread() {
                 public void run() {
                     ArrayList<Map<String, String>> newItems = (position==0)? MainActivity.connect.newsData(startIndex): new ArrayList<>();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter[position].updateList((newItems.size()>0)? newItems: null, newItems.size()>0);
-                        }
-                    });
+                    getActivity().runOnUiThread(() -> adapter[position].updateList((newItems.size()>0)? newItems: null, newItems.size()>0));
                 }
             }.start();
         }
