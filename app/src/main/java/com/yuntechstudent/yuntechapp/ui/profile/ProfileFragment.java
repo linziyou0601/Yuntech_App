@@ -86,6 +86,7 @@ public class ProfileFragment extends Fragment {
         //--------------------設定標題欄項目可見度、課表讀取視圖--------------------//
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         getActivity().findViewById(R.id.spinner_semester).setVisibility(View.GONE);
+        loadingProfile(root);
 
 
         //--------------------取得個人資料--------------------//
@@ -122,12 +123,23 @@ public class ProfileFragment extends Fragment {
                     profile_graduation.setText(profiles.get("profile_graduation").toString());
                     profile_entrance.setText(profiles.get("profile_entrance").toString());
                     profile_academic_status.setText(profiles.get("profile_academic_status").toString());
+                    loadedProfile(root);
                 });
             }
         };
         a.start();
 
         return root;
+    }
+
+    //--------------------叫出、關閉Loading--------------------//
+    protected void loadingProfile(View root){
+        root.findViewById(R.id.profile_loading).setVisibility(View.VISIBLE);
+        root.findViewById(R.id.profile_finishing).setVisibility(View.GONE);
+    }
+    protected void loadedProfile(View root){
+        root.findViewById(R.id.profile_loading).setVisibility(View.GONE);
+        root.findViewById(R.id.profile_finishing).setVisibility(View.VISIBLE);
     }
 
     //--------------------dp轉px、節次轉數字--------------------//
