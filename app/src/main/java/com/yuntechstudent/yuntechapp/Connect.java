@@ -142,7 +142,7 @@ public class Connect {
             else{
                 status.put("status", "success");
                 dom.put("document", document);
-                for(int i = 0; i < 3; i++)
+                for(int i = 0; i < seme.size(); i++)
                     data.put(seme.get(i).attr("value"), seme.get(i).text());
             }
         } catch (IOException e) {
