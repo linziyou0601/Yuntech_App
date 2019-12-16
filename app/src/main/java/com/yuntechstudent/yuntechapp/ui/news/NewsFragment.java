@@ -1,6 +1,8 @@
 package com.yuntechstudent.yuntechapp.ui.news;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,6 +142,7 @@ public class NewsFragment extends Fragment {
             if (holder instanceof NewsViewHolder) {
                 final Map<String, String> member = itemRow.get(position);
                 ((NewsViewHolder) holder).card_newsTitle.setText(member.get("title"));
+                ((NewsViewHolder) holder).card_newsLayout.setOnClickListener(new NewsOnClick(member.get("link")));
                 if(TAB_TYPE == 0){
                     ((NewsViewHolder) holder).card_newsUnit.setText(member.get("unit"));
                     ((NewsViewHolder) holder).card_newsDate.setText(member.get("date"));
@@ -168,10 +171,12 @@ public class NewsFragment extends Fragment {
 
         //一般資料ViewHolder
         class NewsViewHolder extends RecyclerView.ViewHolder{
+            LinearLayout card_newsLayout;
             TextView card_newsTitle, card_newsUnit, card_newsDate;
             LinearLayout card_newsContent;
             NewsViewHolder(View itemView) {
                 super(itemView);
+                card_newsLayout = itemView.findViewById(R.id.card_newsLayout);
                 card_newsTitle = itemView.findViewById(R.id.card_newsTitle);
                 card_newsUnit = itemView.findViewById(R.id.card_newsUnit);
                 card_newsDate = itemView.findViewById(R.id.card_newsDate);
@@ -284,6 +289,19 @@ public class NewsFragment extends Fragment {
                     getActivity().runOnUiThread(() -> adapter[position].updateList((newItems.size()>0)? newItems: null, newItems.size()>0));
                 }
             }.start();
+        }
+    }
+
+    //--------------------監聽 消息點擊--------------------//
+    public class NewsOnClick implements View.OnClickListener {
+        String url;
+        NewsOnClick(String u) { url = u; }
+
+        @Override
+        public void onClick(View v){
+            Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         }
     }
 }

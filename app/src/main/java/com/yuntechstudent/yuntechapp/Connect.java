@@ -408,6 +408,7 @@ public class Connect {
                 data.put("date", card.select(".cardheader .carddate").first().text());
                 data.put("unit", card.select(".cardheader .cardunit a").first().text());
                 data.put("title", card.select("a.cardtxtclick").first().text());
+                data.put("link", "https://www.yuntech.edu.tw" + card.select("a.cardtxtclick").first().attr("href"));
                 result.add(data);
             }
 
@@ -431,7 +432,8 @@ public class Connect {
 
             for(Element card: el.select(".col-md-3")) {
                 Map<String, String> data = new HashMap<>();
-                data.put("title", card.select("div > div > div").first().text());
+                data.put("title", card.select("span").first().text());
+                data.put("link", "https://www.yuntech.edu.tw" + card.select("a").first().attr("href"));
                 result.add(data);
             }
 
