@@ -21,6 +21,9 @@
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_background</item>
     </style>
+    <style name="SpinnerFormTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/form_spinner_background</item>
+    </style>
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">#FFF</item>

@@ -19,6 +19,7 @@ public class Connect {
     public static Connection con;
     public static Map<String, String> cookies;
     public static Map<String, String> cookiesCAS;
+    public static Map<String, String> queryCourseNext;
 
     //--------------------登入--------------------//
     public Map login(String username, String password) {
@@ -120,19 +121,19 @@ public class Connect {
         Map<String, Document> dom = new HashMap<>();
         try {
             //----------建立連線資料----------//
-            Document document = setCookieCAS(url);
+            /*Document document = setCookieCAS(url);
 
             String redirectUrl = "";
             Pattern pattern = Pattern.compile("var redirectUrl = '(.*)';");
             Matcher matcher = pattern.matcher(document.select("script").first().html());
-            if(matcher.find()) redirectUrl = matcher.group(1);
+            if(matcher.find()) redirectUrl = matcher.group(1);*/
 
             //GET取得課表頁面
-            con = Jsoup.connect(redirectUrl)
+            con = Jsoup.connect(url)
                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
-                       .cookies(cookiesCAS);
+                       .cookies(cookies);
 
-            document = con.get();
+            Document document = con.get();
 
             //----------驗證課表頁面狀態----------//
             Elements seme = document.select("#ctl00_ContentPlaceHolder1_AcadSeme > option");
@@ -176,7 +177,7 @@ public class Connect {
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Course/")
                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
                        .method(Connection.Method.POST)
-                       .cookies(cookiesCAS)
+                       .cookies(cookies)
                        .data(datas);
 
             Connection.Response response = con.execute();
@@ -197,19 +198,12 @@ public class Connect {
         Map<String, String> data = new HashMap<>();
         try {
             //----------建立連線資料----------//
-            Document document = setCookieCAS("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/");
-
-            String redirectUrl = "";
-            Pattern pattern = Pattern.compile("var redirectUrl = '(.*)';");
-            Matcher matcher = pattern.matcher(document.select("script").first().html());
-            if(matcher.find()) redirectUrl = matcher.group(1);
-
             //GET取得個人資料頁面
-            con = Jsoup.connect(redirectUrl)
+            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/")
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
-                    .cookies(cookiesCAS);
+                    .cookies(cookies);
 
-            document = con.get();
+            Document document = con.get();
 
             //----------驗證個人資料頁面狀態----------//
             Elements tr = document.select("#ctl00_ContentPlaceHolder1_oStudInfo_StudInfoTable tr");
@@ -261,7 +255,7 @@ public class Connect {
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Score/")
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
                     .method(Connection.Method.POST)
-                    .cookies(cookiesCAS)
+                    .cookies(cookies)
                     .data(datas);
 
             Connection.Response response = con.execute();
@@ -283,19 +277,12 @@ public class Connect {
         Map<String, String> data = new HashMap<>();
         try {
             //----------建立連線資料----------//
-            Document document = setCookieCAS("https://webapp.yuntech.edu.tw/WebNewCAS/Graduation/Score/StudGradCour.aspx");
-
-            String redirectUrl = "";
-            Pattern pattern = Pattern.compile("var redirectUrl = '(.*)';");
-            Matcher matcher = pattern.matcher(document.select("script").first().html());
-            if(matcher.find()) redirectUrl = matcher.group(1);
-
             //GET取得應修未修畢業學分頁面
-            con = Jsoup.connect(redirectUrl)
+            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Graduation/Score/StudGradCour.aspx")
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
-                    .cookies(cookiesCAS);
+                    .cookies(cookies);
 
-            document = con.get();
+            Document document = con.get();
 
             //----------驗證應修未修畢業學分頁面狀態----------//
             String str = "#ctl00_ContentPlaceHolder1_oStudGradInfo_";
@@ -436,6 +423,141 @@ public class Connect {
                 data.put("link", "https://www.yuntech.edu.tw" + card.select("a").first().attr("href"));
                 result.add(data);
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    //--------------------取得課程查詢之學期資料--------------------//
+    public Map getQueryCourseSemester() {
+        Map<String, Map> result = new HashMap<>();
+        Map<String, String> status = new HashMap<>();
+        Map<String, String> data = new HashMap<>();
+        Map<String, Document> dom = new HashMap<>();
+        try {
+            //----------建立連線資料----------//
+            //GET取得查詢頁面
+            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .cookies(cookies);
+            Document document = con.get();
+
+            //----------驗證課表頁面狀態----------//
+            Elements seme = document.select("#ctl00_ContentPlaceHolder1_AcadSeme > option");
+            if(seme.size() == 0){
+                status.put("status", "fail");
+            }
+            else{
+                status.put("status", "success");
+                dom.put("document", document);
+                for(int i = 0; i < seme.size(); i++)
+                    data.put(seme.get(i).attr("value"), seme.get(i).text());
+            }
+        } catch (IOException e) {
+            status.put("status", "fail");
+            e.printStackTrace();
+        }
+
+        result.put("status", status);
+        result.put("data", data);
+        result.put("dom", dom);
+        return result;
+    }
+
+    //--------------------選擇學院--------------------//
+    public Map getQueryCourseCollege(Map<String, String> datas) {
+        Map<String, Map> result = new HashMap<>();
+        Map<String, String> status = new HashMap<>();
+        Map<String, Document> dom = new HashMap<>();
+        try {
+            //----------建立連線資料----------//
+            //GET取得查詢頁面
+            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .method(Connection.Method.POST)
+                    .data(datas);
+            Connection.Response response = con.execute();
+            Document document = Jsoup.parse(response.body());
+            dom.put("document", document);
+            status.put("status", "success");
+        } catch (IOException e) {
+            status.put("status", "fail");
+            e.printStackTrace();
+        }
+        result.put("dom", dom);
+        return result;
+    }
+
+    //--------------------取得所有課程--------------------//
+    public ArrayList<Map<String, String>> queryCourseData(Map<String, String> datas, int page) {
+        ArrayList<Map<String, String>> result = new ArrayList<>();
+        try {
+            //----------取得課程資料----------//
+            //GET取得課程頁面
+            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .method(Connection.Method.POST)
+                    .data((page>1)? queryCourseNext: datas);
+            Connection.Response response = con.execute();
+            Document document = Jsoup.parse(response.body());
+            Element el = document.select("#ctl00_ContentPlaceHolder1_Course_GridView").first();
+
+            //----------資料存入List----------//
+            if(el.select("[class$='Row']").size() > 0){
+                for (Element row: el.select("[class$='Row']")) {
+                    Map<String, String> item = new HashMap<>();
+                    item.put("Serial_No", row.select("td").get(0).text());
+                    item.put("Curriculum_No", row.select("td").get(1).text());
+                    item.put("Course_Name_CHT", row.select("td").get(2).select("a").first().text());
+                    item.put("Course_Name_ENG", row.select("td").get(2).select("span").first().text());
+                    item.put("Class", row.select("td").get(3).text());
+                    item.put("Team", row.select("td").get(4).text());
+                    item.put("Required_Elective", row.select("td").get(5).select("span").first().text());
+                    item.put("Credits", row.select("td").get(6).text());
+                    item.put("Schedule_Location", row.select("td").get(7).text());
+                    item.put("Instructor", row.select("td").get(8).text());
+                    item.put("Sel", row.select("td").get(9).text());
+                    item.put("Max", row.select("td").get(10).text());
+                    item.put("Remarks", row.select("td").get(11).text());
+                    Element link = row.select("td").get(2).select("a").first();
+                    if(link.hasAttr("href")){
+                        String linkUrl = "";
+                        Pattern pattern = Pattern.compile("javascript:openwindow\\('(.*)'\\)");
+                        Matcher matcher = pattern.matcher(link.attr("href").replaceAll("&amp;", "&"));
+                        if(matcher.find()) linkUrl = matcher.group(1);
+                        item.put("Link", "https://webapp.yuntech.edu.tw" + linkUrl);
+                    }else{
+                        item.put("Link", "");
+                    }
+
+                    result.add(item);
+                }
+            }
+
+            //----------儲存下次頁面隱藏值----------//
+            Map<String, String> item = new HashMap<>();
+            if(document.select("#ctl00_ContentPlaceHolder1_PageControl1_NextPage").first().hasAttr("href")){
+                queryCourseNext = new HashMap<>();
+                queryCourseNext.put("ctl00$ToolkitScriptManager1", "ctl00$ContentPlaceHolder1$UpdatePanel2|ctl00$ContentPlaceHolder1$PageControl1$NextPage");
+                queryCourseNext.put("ctl00_ToolkitScriptManager1_HiddenField", ";;AjaxControlToolkit, Version=4.1.60919.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:zh-TW:ab75ae50-1505-49da-acca-8b96b908cb1a:f2c8e708:de1feab2:720a52bf:f9cec9bc:589eaa30:a67c2700:ab09e3fe:87104b7c:8613aea7:3202a5a2:be6fb298");
+                queryCourseNext.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
+                queryCourseNext.put("__EVENTTARGET", "ctl00$ContentPlaceHolder1$PageControl1$NextPage");
+                queryCourseNext.put("__EVENTARGUMENT", document.select("#__EVENTARGUMENT").first().attr("value"));
+                queryCourseNext.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
+                queryCourseNext.put("__VIEWSTATE", document.select("#__VIEWSTATE").first().attr("value"));
+                queryCourseNext.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
+                queryCourseNext.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
+                queryCourseNext.put("ctl00$ContentPlaceHolder1$PageControl1$Pages", String.valueOf(page));
+                queryCourseNext.put("ctl00$ContentPlaceHolder1$PageControl1$PageSize", "20");
+                queryCourseNext.put("ctl00$ContentPlaceHolder1$Cour_Remark", "");
+                item.put("next", "true");
+            }else{
+                item.put("next", "false");
+            }
+            result.add(item);
 
         } catch (IOException e) {
             e.printStackTrace();
