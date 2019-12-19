@@ -35,6 +35,15 @@
         </menu>
     </item>
 
+    <item android:title="查詢">
+        <menu>
+            <item
+                android:id="@+id/nav_queryCourse"
+                android:icon="@drawable/ic_menu_query_course"
+                android:title="@string/menu_queryCourse" />
+        </menu>
+    </item>
+
     <item android:title="系統">
         <menu>
             <item
