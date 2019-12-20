@@ -484,7 +484,7 @@ public class Connect {
             Element el = document.select(".MsoNormalTable").get(1).select("thead").first();
             Map<String, String> data = new HashMap<>();
             data.put("madeTime", el.select("tr").get(0).select("td > p > span").get(1).text() + el.select("tr").get(0).select("td > p > span").get(2).text());
-            data.put("originSpot", "後火車站／高鐵車站");
+            data.put("originSpot", "後火車站");
             result.add(data);
 
             //存schedule

@@ -132,7 +132,8 @@ public class BusFragment extends Fragment {
             final Map<String, String> member = itemRow.get(position);
             if (holder instanceof BusViewHolder) {
                 String color = member.get("company").equals("高鐵快捷公車")? "#03969e": "#8a0c2c";
-
+                ((BusViewHolder) holder).bus_originSpot.setText(itemRow.get(0).get("originSpot"));
+                ((BusViewHolder) holder).bus_originSpot.setTextColor(Color.parseColor(color));
                 ((BusViewHolder) holder).bus_route.setText(member.get("company")+" "+member.get("number"));
                 ((BusViewHolder) holder).bus_route.setTextColor(Color.parseColor(color));
                 ((BusViewHolder) holder).bus_origin.setText(member.get("origin"));
@@ -173,10 +174,11 @@ public class BusFragment extends Fragment {
         //一般資料ViewHolder
         class BusViewHolder extends RecyclerView.ViewHolder{
             RelativeLayout bus_relLayout;
-            TextView bus_route, bus_origin, bus_dest, bus_depart, bus_remark;
+            TextView bus_originSpot, bus_route, bus_origin, bus_dest, bus_depart, bus_remark;
             BusViewHolder(View itemView) {
                 super(itemView);
                 bus_relLayout = itemView.findViewById(R.id.bus_relLayout);
+                bus_originSpot = itemView.findViewById(R.id.bus_originSpot);
                 bus_route = itemView.findViewById(R.id.bus_route);
                 bus_origin = itemView.findViewById(R.id.bus_origin);
                 bus_dest = itemView.findViewById(R.id.bus_dest);

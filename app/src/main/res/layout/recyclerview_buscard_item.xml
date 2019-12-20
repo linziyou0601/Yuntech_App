@@ -72,8 +72,18 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/bus_originSpot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="校門口"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="發車時間 "
                     android:textSize="14sp" />
 
