@@ -150,7 +150,7 @@ public class NewsFragment extends Fragment {
                     ((NewsViewHolder) holder).card_newsContent.setVisibility(View.GONE);
                 }
             } else {
-                ((FootViewHolder) holder).tips.setText(hasMore? "正在載入更多...": "沒有更多資料");
+                ((FootViewHolder) holder).tips.setText((hasMore&&TAB_TYPE==0)? "正在載入更多...": "沒有更多資料");
             }
         }
 
@@ -233,35 +233,34 @@ public class NewsFragment extends Fragment {
         public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
             //----------於子頁面建立最新消息內容----------//
             //設定data、layout、adapter
-            ArrayList<Map> data = pageDatas.get(position);
+            ArrayList<Map<String, String>> data = pageDatas.get(position);
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
-            adapter[position] = new newsItemAdapter(pageDatas.get(position), context,
-                                                    pageDatas.get(position).size() > 0 ? true : false, position);
+            adapter[position] = new newsItemAdapter(data, context, data.size() > 0 ? true : false, position);
 
             //layout、adapter設定入recyclerView
             holder.recyclerView.setLayoutManager(mLayoutManager);
             holder.recyclerView.addItemDecoration(new DividerItemDecoration(holder.recyclerView.getContext(), DividerItemDecoration.VERTICAL));
             holder.recyclerView.setAdapter(adapter[position]);
 
+            if(position==0){
+                //----------監聽子頁面RecyclerView的滑動----------//
+                holder.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        //當滾動事件停止時觸發一次
+                        if(newState == RecyclerView.SCROLL_STATE_IDLE)
+                            if (lastVisibleItem + 1 == adapter[position].getItemCount())
+                                updateRecyclerView(adapter[position].getRealLastPosition(), position);
+                    }
 
-            //----------監聽子頁面RecyclerView的滑動----------//
-            holder.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    //當滾動事件停止時觸發一次
-                    if(newState == RecyclerView.SCROLL_STATE_IDLE)
-                        if (lastVisibleItem + 1 == adapter[position].getItemCount())
-                            updateRecyclerView(adapter[position].getRealLastPosition(), position);
-                }
-
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    lastVisibleItem = mLayoutManager.findLastVisibleItemPosition(); //滑動完成後，取得最後一筆可見項目的位置
-                }
-            });
-
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        lastVisibleItem = mLayoutManager.findLastVisibleItemPosition(); //滑動完成後，取得最後一筆可見項目的位置
+                    }
+                });
+            }
         }
 
         //取得數量
