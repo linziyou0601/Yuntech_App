@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_nav_profile_to_nav_queryCourse"
             app:destination="@id/nav_queryCourse" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_bus"
+            app:destination="@id/nav_bus" />
     </fragment>
 
     <fragment
@@ -67,8 +70,14 @@
         tools:layout="@layout/fragment_news" />
 
     <fragment
+        android:id="@+id/nav_bus"
+        android:name="com.yuntechstudent.yuntechapp.ui.bus.BusFragment"
+        android:label="@string/menu_bus"
+        tools:layout="@layout/fragment_bus" />
+
+    <fragment
         android:id="@+id/nav_queryCourse"
         android:name="com.yuntechstudent.yuntechapp.ui.queryCourse.QueryCourseFragment"
         android:label="@string/menu_queryCourse"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_query_course" />
 </navigation>

@@ -102,14 +102,14 @@ public class QueryCourseFragment extends Fragment {
         //取得學年及連線資料
         Thread a = new Thread(){
             public void run(){
-                Map result = MainActivity.connect.getQueryCourseSemester();
+                Map result = MainActivity.connect.getSemester("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx");
                 Map status = (Map)result.get("status");
                 Map semesters = (Map)result.get("data");
 
                 while(status.get("status").toString().equals("fail")){
                     try { Thread.sleep(3000); }
                     catch (Exception e) { System.out.println(e); }
-                    result = MainActivity.connect.getSemester("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Score/");
+                    result = MainActivity.connect.getSemester("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx");
                     status = (Map)result.get("status");
                     semesters = (Map)result.get("data");
                 }

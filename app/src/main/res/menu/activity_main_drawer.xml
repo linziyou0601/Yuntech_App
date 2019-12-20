@@ -22,8 +22,21 @@
             android:title="@string/menu_graduate" />
     </group>
 
+    <item android:title="查詢">
+        <menu>
+            <item
+                android:id="@+id/nav_queryCourse"
+                android:icon="@drawable/ic_menu_query_course"
+                android:title="@string/menu_queryCourse" />
+        </menu>
+    </item>
+
     <item android:title="學校">
         <menu>
+            <item
+                android:id="@+id/nav_bus"
+                android:icon="@drawable/ic_menu_bus"
+                android:title="@string/menu_bus" />
             <item
                 android:id="@+id/nav_map"
                 android:icon="@drawable/ic_menu_map"
@@ -32,15 +45,6 @@
                 android:id="@+id/nav_news"
                 android:icon="@drawable/ic_menu_news"
                 android:title="@string/menu_news" />
-        </menu>
-    </item>
-
-    <item android:title="查詢">
-        <menu>
-            <item
-                android:id="@+id/nav_queryCourse"
-                android:icon="@drawable/ic_menu_query_course"
-                android:title="@string/menu_queryCourse" />
         </menu>
     </item>
 

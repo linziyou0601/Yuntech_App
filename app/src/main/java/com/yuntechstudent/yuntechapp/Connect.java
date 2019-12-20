@@ -1,6 +1,7 @@
 package com.yuntechstudent.yuntechapp;
 
 import android.util.Base64;
+import android.util.Log;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -121,9 +122,9 @@ public class Connect {
         Map<String, Document> dom = new HashMap<>();
         try {
             //----------建立連線資料----------//
-            /*Document document = setCookieCAS(url);
+            Document document = setCookieCAS(url);
 
-            String redirectUrl = "";
+            /*String redirectUrl = "";
             Pattern pattern = Pattern.compile("var redirectUrl = '(.*)';");
             Matcher matcher = pattern.matcher(document.select("script").first().html());
             if(matcher.find()) redirectUrl = matcher.group(1);*/
@@ -131,9 +132,9 @@ public class Connect {
             //GET取得課表頁面
             con = Jsoup.connect(url)
                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
-                       .cookies(cookies);
+                       .cookies(cookiesCAS);
 
-            Document document = con.get();
+            document = con.get();
 
             //----------驗證課表頁面狀態----------//
             Elements seme = document.select("#ctl00_ContentPlaceHolder1_AcadSeme > option");
@@ -177,12 +178,13 @@ public class Connect {
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Course/")
                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
                        .method(Connection.Method.POST)
-                       .cookies(cookies)
+                       .cookies(cookiesCAS)
                        .data(datas);
 
             Connection.Response response = con.execute();
             Document dom = Jsoup.parse(response.body());
             result = dom.select("tr[class$=\"Row\"]");
+            Log.i("course", dom.text());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -255,7 +257,7 @@ public class Connect {
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Score/")
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
                     .method(Connection.Method.POST)
-                    .cookies(cookies)
+                    .cookies(cookiesCAS)
                     .data(datas);
 
             Connection.Response response = con.execute();
@@ -431,39 +433,77 @@ public class Connect {
         return result;
     }
 
-    //--------------------取得課程查詢之學期資料--------------------//
-    public Map getQueryCourseSemester() {
-        Map<String, Map> result = new HashMap<>();
-        Map<String, String> status = new HashMap<>();
-        Map<String, String> data = new HashMap<>();
-        Map<String, Document> dom = new HashMap<>();
+    //--------------------往火車站時刻表--------------------//
+    public ArrayList<Map<String, String>> toStationData() {
+        ArrayList<Map<String, String>> result = new ArrayList<>();
         try {
-            //----------建立連線資料----------//
-            //GET取得查詢頁面
-            con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
-                    .cookies(cookies);
+            //----------往火車站----------//
+            //GET取得時刻表
+            con = Jsoup.connect("https://ags.yuntech.edu.tw/index.php?option=com_content&task=view&id=1396&Itemid=547&from=News")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
             Document document = con.get();
 
-            //----------驗證課表頁面狀態----------//
-            Elements seme = document.select("#ctl00_ContentPlaceHolder1_AcadSeme > option");
-            if(seme.size() == 0){
-                status.put("status", "fail");
+            //存metadata
+            Element el = document.select(".MsoNormalTable").first().select("thead").first();
+            Map<String, String> data = new HashMap<>();
+            data.put("madeTime", el.select("tr").get(0).select("td > p > span").get(0).text() + el.select("tr").get(0).select("td > p > span").get(1).text());
+            data.put("originSpot", "校門口");
+            result.add(data);
+
+            //存schedule
+            el = document.select(".MsoNormalTable").first().select("tbody").first();
+            for(Element tr: el.select("tr")) {
+                data = new HashMap<>();
+                data.put("depart", tr.select("td").get(1).text());
+                data.put("company", tr.select("td").get(4).text());
+                data.put("number", tr.select("td").get(5).text());
+                data.put("origin", tr.select("td").get(6).text().split("→")[0]);
+                data.put("dest", tr.select("td").get(6).text().split("→")[1]);
+                data.put("remark", tr.select("td").get(7).text());
+                result.add(data);
             }
-            else{
-                status.put("status", "success");
-                dom.put("document", document);
-                for(int i = 0; i < seme.size(); i++)
-                    data.put(seme.get(i).attr("value"), seme.get(i).text());
-            }
+
         } catch (IOException e) {
-            status.put("status", "fail");
             e.printStackTrace();
         }
 
-        result.put("status", status);
-        result.put("data", data);
-        result.put("dom", dom);
+        return result;
+    }
+
+    //--------------------往雲科大時刻表--------------------//
+    public ArrayList<Map<String, String>> toYuntechData() {
+        ArrayList<Map<String, String>> result = new ArrayList<>();
+        try {
+            //----------往雲科大----------//
+            //GET取得時刻表
+            con = Jsoup.connect("https://ags.yuntech.edu.tw/index.php?option=com_content&task=view&id=1396&Itemid=547&from=News")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
+            Document document = con.get();
+
+            //存metadata
+            Element el = document.select(".MsoNormalTable").get(1).select("thead").first();
+            Map<String, String> data = new HashMap<>();
+            data.put("madeTime", el.select("tr").get(0).select("td > p > span").get(1).text() + el.select("tr").get(0).select("td > p > span").get(2).text());
+            data.put("originSpot", "後火車站／高鐵車站");
+            result.add(data);
+
+            //存schedule
+            el = document.select(".MsoNormalTable").get(1).select("tbody").first();
+            for(Element tr: el.select("tr")) {
+                data = new HashMap<>();
+                data.put("depart", tr.select("td").get(2).text());
+                data.put("company", tr.select("td").get(3).text());
+                data.put("number", tr.select("td").get(4).text());
+                data.put("origin", tr.select("td").get(5).text().split("→")[0]);
+                data.put("dest", tr.select("td").get(5).text().split("→")[1]);
+                data.put("remark", tr.select("td").get(6).text());
+                result.add(data);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 

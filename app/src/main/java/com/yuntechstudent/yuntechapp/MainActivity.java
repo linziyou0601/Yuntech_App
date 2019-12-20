@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_login, R.id.nav_course, R.id.nav_profile, R.id.nav_score,
-                R.id.nav_graduate, R.id.nav_map, R.id.nav_news, R.id.nav_queryCourse, R.id.nav_logout)
+                R.id.nav_login, R.id.nav_course, R.id.nav_profile, R.id.nav_score, R.id.nav_graduate,
+                R.id.nav_map, R.id.nav_news, R.id.nav_bus, R.id.nav_queryCourse, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void showAbout(MenuItem item){
         new MaterialAlertDialogBuilder(this, R.style.MyThemeOverlayAlertDialog)
                 .setTitle("關於YunTech App")
-                .setMessage("\n　　本App為非官方軟體，目的為方便使用手機查詢資料，內容僅供查詢參考，所有資訊皆以「雲科大單一入口網」為準。\n\n　　本App運作時會將帳號密碼加密處理，且不會主動紀錄使用者之帳號密碼，若有疑慮請勿使用。\n\n\n©Linziyou0601\nYunTech App (ver. 1.5)")
+                .setMessage("\n　　本App為非官方軟體，目的為方便使用手機查詢資料，內容僅供查詢參考，所有資訊皆以「雲科大單一入口網」為準。\n\n　　本App運作時會將帳號密碼加密處理，且不會主動紀錄使用者之帳號密碼，若有疑慮請勿使用。\n\n\n©Linziyou0601\nYunTech App (ver. 1.6)")
                 .setNegativeButton("關閉", null)
                 .show();
     }
@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_news:
                 fragment = R.id.nav_news;
+                break;
+            case R.id.nav_bus:
+                fragment = R.id.nav_bus;
                 break;
             case R.id.nav_queryCourse:
                 fragment = R.id.nav_queryCourse;

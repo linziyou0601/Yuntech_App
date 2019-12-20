@@ -14,6 +14,7 @@
     <string name="menu_graduate">畢業學分</string>
     <string name="menu_map">校園地圖</string>
     <string name="menu_news">校園消息</string>
+    <string name="menu_bus">簡易公車時刻</string>
     <string name="menu_queryCourse">課程查詢</string>
     <string name="menu_queryStudent">學生資訊查詢</string>
     <string name="menu_queryCourStu">修課學生名單</string>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/rounded_bottom_sheet"
     android:orientation="vertical"
+    app:behavior_fitToContents="false"
     app:behavior_hideable="false"
     app:behavior_peekHeight="80dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -30,11 +31,9 @@
         android:layout_marginBottom="15dp"
         android:background="@color/md_btn_selected_dark" />
 
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
         android:fillViewport="true">
 
         <LinearLayout
@@ -727,5 +726,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

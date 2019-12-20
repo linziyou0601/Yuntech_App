@@ -214,7 +214,6 @@ public class NewsFragment extends Fragment {
         private int lastVisibleItem = 0;       //最後一筆可見資料項目位置
         private final int PAGE_COUNT = 16;     //每頁項目數
         private newsItemAdapter[] adapter;     //adapter
-        private
 
         ViewPagerAdapter(Context context, ArrayList pageDatas) {
             this.context = context;
@@ -276,7 +275,7 @@ public class NewsFragment extends Fragment {
             RecyclerView recyclerView;
             public PageViewHolder(View itemView) {
                 super(itemView);
-                recyclerView = itemView.findViewById(R.id.newsRecyView);
+                recyclerView = itemView.findViewById(R.id.recyView);
             }
         }
 
