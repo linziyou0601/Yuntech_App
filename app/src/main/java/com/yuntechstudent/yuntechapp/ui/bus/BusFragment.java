@@ -143,8 +143,10 @@ public class BusFragment extends Fragment {
                 LayerDrawable layerDrawable = (LayerDrawable)((BusViewHolder) holder).bus_relLayout.getBackground();
                 ((GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.gradientDrawble)).setColor(Color.parseColor(color));
 
-                if(!member.get("remark").equals(""))
+                if(!member.get("remark").equals("")){
+                    ((BusViewHolder) holder).bus_remark.setVisibility(View.VISIBLE);
                     ((BusViewHolder) holder).bus_remark.setText(member.get("remark"));
+                }
                 else
                     ((BusViewHolder) holder).bus_remark.setVisibility(View.GONE);
             } else {
