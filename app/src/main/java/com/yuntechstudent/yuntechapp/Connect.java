@@ -1,7 +1,6 @@
 package com.yuntechstudent.yuntechapp;
 
 import android.util.Base64;
-import android.util.Log;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -183,8 +182,8 @@ public class Connect {
 
             Connection.Response response = con.execute();
             Document dom = Jsoup.parse(response.body());
-            result = dom.select("tr[class$=\"Row\"]");
-            Log.i("course", dom.text());
+            Element table = dom.select("#ctl00_ContentPlaceHolder1_StudCour_GridView").first();
+            result = table.select("tr[class$=\"Row\"]");
 
         } catch (IOException e) {
             e.printStackTrace();

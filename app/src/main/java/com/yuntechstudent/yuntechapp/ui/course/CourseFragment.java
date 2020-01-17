@@ -167,11 +167,11 @@ public class CourseFragment extends Fragment {
                 root.findViewById(R.id.column_wed),
                 root.findViewById(R.id.column_thu),
                 root.findViewById(R.id.column_fri) };
-        boolean[][] time = new boolean[5][10];
-        String[][] name = new String[5][10];
-        String[][] s_num = new String[5][10];
+        boolean[][] time = new boolean[5][16];
+        String[][] name = new String[5][16];
+        String[][] s_num = new String[5][16];
         for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 10; j++){
+            for(int j = 0; j < 16; j++){
                 time[i][j] = false;
                 name[i][j] = "";
                 s_num[i][j] = "";
@@ -186,13 +186,20 @@ public class CourseFragment extends Fragment {
             //取得課程時間
             String schedule = td.get(7).text();
             if(!schedule.equals("")) {
-                String[] tokens = schedule.split("-|/");
-                //放入時間表
-                for (char k : tokens[1].toCharArray()) {
-                    time[Integer.parseInt(tokens[0]) - 1][dayHour(k)] = true;
-                    name[Integer.parseInt(tokens[0]) - 1][dayHour(k)] = td.get(2).select("a").text();
-                    s_num[Integer.parseInt(tokens[0]) - 1][dayHour(k)] = td.get(0).text();
+                //將節次(星期-節次,星期-節次/教室)分割成(星期-節次,星期-節次)，再分割成 [星期-節次, 星期-節次] 陣列
+                String[] days = (schedule.split("/")[0]).split(",");
+                //循序存取 [星期-節次, 星期-節次]
+                for (String day: days){
+                    //將 (星期-節次) 分割成 [星期, 節次]
+                    String[] day_times = day.split("-");
+                    //放入時間表
+                    for (char k : day_times[1].toCharArray()) {
+                        time[Integer.parseInt(day_times[0]) - 1][dayHour(k)] = true;
+                        name[Integer.parseInt(day_times[0]) - 1][dayHour(k)] = td.get(2).select("a").text();
+                        s_num[Integer.parseInt(day_times[0]) - 1][dayHour(k)] = td.get(0).text();
+                    }
                 }
+
             }
             //存課程詳細資料
             Map<String, String> detail = new HashMap<>();
@@ -215,11 +222,11 @@ public class CourseFragment extends Fragment {
         for(int i = 0; i < 5; i++){
             LinearLayout column = columnDay[i];
             column.removeAllViews();
-            for(int j = 0; j < 10;){
+            for(int j = 0; j < 16;){
                 int weight = 1;
                 String color = (time[i][j])? colorArray[(c++)%10]: "#00FFFFFF";
                 int k = j+1;
-                while(k<10 && name[i][j].equals(name[i][k])){
+                while(k<16 && name[i][j].equals(name[i][k])){
                     weight++;
                     k++;
                 }
@@ -293,35 +300,53 @@ public class CourseFragment extends Fragment {
     protected int dayHour(char ch) {
         int x=0;
         switch(ch){
-            case 'A':
+            case 'W':
                 x = 0;
                 break;
-            case 'B':
+            case 'X':
                 x = 1;
                 break;
-            case 'C':
+            case 'A':
                 x = 2;
                 break;
-            case 'D':
+            case 'B':
                 x = 3;
                 break;
-            case 'Y':
+            case 'C':
                 x = 4;
                 break;
-            case 'E':
+            case 'D':
                 x = 5;
                 break;
-            case 'F':
+            case 'Y':
                 x = 6;
                 break;
-            case 'G':
+            case 'E':
                 x = 7;
                 break;
-            case 'H':
+            case 'F':
                 x = 8;
                 break;
-            case 'Z':
+            case 'G':
                 x = 9;
+                break;
+            case 'H':
+                x = 10;
+                break;
+            case 'Z':
+                x = 11;
+                break;
+            case 'I':
+                x = 12;
+                break;
+            case 'J':
+                x = 13;
+                break;
+            case 'K':
+                x = 14;
+                break;
+            case 'L':
+                x = 15;
                 break;
         }
         return x;

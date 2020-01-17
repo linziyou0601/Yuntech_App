@@ -2,52 +2,82 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:top="0dp">
         <shape>
-            <solid android:height="64dp" android:color="#F9F9F9" />
+            <solid android:height="64dp" android:color="#FFFFFF" />
         </shape>
     </item>
     <item android:top="64dp">
         <shape>
-            <solid android:height="64dp" android:color="#FFFFFF" />
+            <solid android:height="64dp" android:color="#fff6f6" />
         </shape>
     </item>
     <item android:top="128dp">
         <shape>
-            <solid android:height="64dp" android:color="#F9F9F9" />
+            <solid android:height="64dp" android:color="#FFFFFF" />
         </shape>
     </item>
     <item android:top="192dp">
         <shape>
-            <solid android:height="64dp" android:color="#FFFFFF" />
+            <solid android:height="64dp" android:color="#F9F9F9" />
         </shape>
     </item>
     <item android:top="256dp">
         <shape>
-            <solid android:height="64dp" android:color="#fff6f6" />
+            <solid android:height="64dp" android:color="#FFFFFF" />
         </shape>
     </item>
     <item android:top="320dp">
         <shape>
-            <solid android:height="64dp" android:color="#FFFFFF" />
+            <solid android:height="64dp" android:color="#F9F9F9" />
         </shape>
     </item>
     <item android:top="384dp">
         <shape>
-            <solid android:height="64dp" android:color="#F9F9F9" />
+            <solid android:height="64dp" android:color="#fff6f6" />
         </shape>
     </item>
     <item android:top="448dp">
         <shape>
-            <solid android:height="64dp" android:color="#FFFFFF" />
+            <solid android:height="64dp" android:color="#F9F9F9" />
         </shape>
     </item>
     <item android:top="512dp">
         <shape>
-            <solid android:height="64dp" android:color="#F9F9F9" />
+            <solid android:height="64dp" android:color="#FFFFFF" />
         </shape>
     </item>
     <item android:top="576dp">
         <shape>
+            <solid android:height="64dp" android:color="#F9F9F9" />
+        </shape>
+    </item>
+    <item android:top="640dp">
+        <shape>
+            <solid android:height="64dp" android:color="#FFFFFF" />
+        </shape>
+    </item>
+    <item android:top="704dp">
+        <shape>
             <solid android:height="64dp" android:color="#fff6f6" />
+        </shape>
+    </item>
+    <item android:top="768dp">
+        <shape>
+            <solid android:height="64dp" android:color="#FFFFFF" />
+        </shape>
+    </item>
+    <item android:top="832dp">
+        <shape>
+            <solid android:height="64dp" android:color="#F9F9F9" />
+        </shape>
+    </item>
+    <item android:top="896dp">
+        <shape>
+            <solid android:height="64dp" android:color="#FFFFFF" />
+        </shape>
+    </item>
+    <item android:top="960dp">
+        <shape>
+            <solid android:height="64dp" android:color="#F9F9F9" />
         </shape>
     </item>
 </layer-list>

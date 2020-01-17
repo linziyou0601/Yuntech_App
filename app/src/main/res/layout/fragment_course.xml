@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,6 +120,43 @@
                         android:layout_weight="1.1"
                         android:background="@drawable/course_column"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/hour_W"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="06:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_W"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="W"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_X"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="07:10"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_X"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="X"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/hour_A"
@@ -301,6 +338,78 @@
                             android:gravity="center"
                             android:text="Z"
                             android:textColor="@color/colorAccent"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_I"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="18:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_I"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="I"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_J"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="19:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_J"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="J"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_K"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="20:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_K"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="K"
+                            android:textColor="#CCCCCC"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/hour_L"
+                            android:layout_width="match_parent"
+                            android:layout_height="18dp"
+                            android:gravity="center"
+                            android:text="21:10"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_L"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:gravity="center"
+                            android:text="L"
+                            android:textColor="#CCCCCC"
                             android:textSize="24sp" />
                     </LinearLayout>
 
