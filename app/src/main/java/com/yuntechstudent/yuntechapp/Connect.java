@@ -216,8 +216,12 @@ public class Connect {
                 data.put("profile_class", tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_EduSys").first().text() + "／" +
                                           tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_StudClass").first().text());
                 data.put("profile_double_major", tr.get(3).select("td").get(3).text());
-                data.put("profile_mainteacher", tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher").first().text() + "\n" +
-                                                tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher a").first().attr("href").replace("mailto:", ""));
+                if(tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher a").size() > 0){
+                    data.put("profile_mainteacher", tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher").first().text() + "\n" +
+                                                    tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher a").first().attr("href").replace("mailto:", ""));
+                }else{
+                    data.put("profile_mainteacher", "");
+                }
                 data.put("profile_graduation", tr.get(0).select("td").get(1).text().replaceAll("(學年度第)", "-").replaceAll("(學期)", ""));
                 data.put("profile_entrance", tr.get(0).select("td").get(3).text());
                 data.put("profile_academic_status", tr.get(3).select("td").get(1).text());
