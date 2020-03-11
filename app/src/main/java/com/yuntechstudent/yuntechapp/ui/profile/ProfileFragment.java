@@ -115,6 +115,7 @@ public class ProfileFragment extends Fragment {
                     data = (Map)result.get("data");
                 }
 
+
                 final Map profiles = data;
                 getActivity().runOnUiThread(() -> {
                     profile_class.setText(profiles.get("profile_class").toString());
@@ -123,6 +124,7 @@ public class ProfileFragment extends Fragment {
                     profile_graduation.setText(profiles.get("profile_graduation").toString());
                     profile_entrance.setText(profiles.get("profile_entrance").toString());
                     profile_academic_status.setText(profiles.get("profile_academic_status").toString());
+
                     loadedProfile(root);
                 });
             }
