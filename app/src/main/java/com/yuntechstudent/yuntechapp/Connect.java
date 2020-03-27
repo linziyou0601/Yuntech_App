@@ -42,11 +42,11 @@ public class Connect {
             datas.put("redirectUrl", "");
             datas.put("pLoginName", username);
             datas.put("pLoginPassword", password);
-            datas.put("BDC_VCID_YuntechSSO", document.select("#BDC_VCID_YuntechSSO").first().attr("value"));
-            datas.put("BDC_BackWorkaround_YuntechSSO", document.select("#BDC_BackWorkaround_YuntechSSO").first().attr("value"));
-            datas.put("BDC_Hs_YuntechSSO", document.select("#BDC_Hs_YuntechSSO").first().attr("value"));
-            datas.put("BDC_SP_YuntechSSO", document.select("#BDC_SP_YuntechSSO").first().attr("value"));
-            datas.put("pSecretString", "");
+            //datas.put("BDC_VCID_YuntechSSO", document.select("#BDC_VCID_YuntechSSO").first().attr("value"));
+            //datas.put("BDC_BackWorkaround_YuntechSSO", document.select("#BDC_BackWorkaround_YuntechSSO").first().attr("value"));
+            //datas.put("BDC_Hs_YuntechSSO", document.select("#BDC_Hs_YuntechSSO").first().attr("value"));
+            //datas.put("BDC_SP_YuntechSSO", document.select("#BDC_SP_YuntechSSO").first().attr("value"));
+            //datas.put("pSecretString", "");
 
             //----------登入----------//
             //POST登入表單
