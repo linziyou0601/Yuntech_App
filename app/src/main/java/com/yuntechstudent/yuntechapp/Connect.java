@@ -29,7 +29,7 @@ public class Connect {
         try {
             //----------建立連線資料----------//
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/YunTechSSO/Account/Login")
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
 
             //----------登入表單資料----------//
             //GET取得頁面
@@ -51,7 +51,7 @@ public class Connect {
             //----------登入----------//
             //POST登入表單
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/YunTechSSO/Account/Login")
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                        .method(Connection.Method.POST)
                        .cookies(response.cookies())
                        .data(datas);
@@ -99,7 +99,7 @@ public class Connect {
         try {
             //----------建立連線資料----------//
             con = Jsoup.connect(url)
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                        .cookies(cookies);
 
             //----------取得教務系統連線資料----------//
@@ -130,13 +130,13 @@ public class Connect {
 
             //GET取得課表頁面
             con = Jsoup.connect(url)
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                        .cookies(cookiesCAS);
 
             document = con.get();
 
             //----------驗證課表頁面狀態----------//
-            Elements seme = document.select("#ctl00_ContentPlaceHolder1_AcadSeme > option");
+            Elements seme = document.select("#ctl00_MainContent_AcadSeme > option");
             if(seme.size() == 0){
                 status.put("status", "fail");
             }
@@ -164,25 +164,25 @@ public class Connect {
             //----------學期課表資料----------//
             //填入資料
             Map<String, String> datas = new HashMap<>();
-            datas.put("ctl00_ToolkitScriptManager1_HiddenField", document.select("#ctl00_ToolkitScriptManager1_HiddenField").first().attr("value"));
-            datas.put("__EVENTTARGET", "ctl00$ContentPlaceHolder1$AcadSeme");
+            //datas.put("ctl00_ToolkitScriptManager1_HiddenField", document.select("#ctl00_ToolkitScriptManager1_HiddenField").first().attr("value"));
+            datas.put("__EVENTTARGET", "ctl00$MainContent$AcadSeme");
             datas.put("__EVENTARGUMENT", "");
             datas.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
             datas.put("__VIEWSTATE", document.select("#__VIEWSTATE").first().attr("value"));
             datas.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
             datas.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
-            datas.put("ctl00$ContentPlaceHolder1$AcadSeme", seme);
+            datas.put("ctl00$MainContent$AcadSeme", seme);
 
             //GET取得課表頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Course/")
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                        .method(Connection.Method.POST)
                        .cookies(cookiesCAS)
                        .data(datas);
 
             Connection.Response response = con.execute();
             Document dom = Jsoup.parse(response.body());
-            Element table = dom.select("#ctl00_ContentPlaceHolder1_StudCour_GridView").first();
+            Element table = dom.select("#ctl00_MainContent_StudCour_GridView").first();
             result = table.select("tr[class$=\"Row\"]");
 
         } catch (IOException e) {
@@ -201,24 +201,24 @@ public class Connect {
             //----------建立連線資料----------//
             //GET取得個人資料頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                     .cookies(cookies);
 
-            Document document = con.get();
+            Document document = con.execute().parse();
 
             //----------驗證個人資料頁面狀態----------//
-            Elements tr = document.select("#ctl00_ContentPlaceHolder1_oStudInfo_StudInfoTable tr");
+            Elements tr = document.select("#ctl00_MainContent_oStudInfo_StudInfoTable tr");
             if(tr.size() == 0){
                 status.put("status", "fail");
             }
             else{
                 status.put("status", "success");
-                data.put("profile_class", tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_EduSys").first().text() + "／" +
-                                          tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_StudClass").first().text());
+                data.put("profile_class", tr.get(1).select("#ctl00_MainContent_oStudInfo_EduSys").first().text() + "／" +
+                                          tr.get(1).select("#ctl00_MainContent_oStudInfo_StudClass").first().text());
                 data.put("profile_double_major", tr.get(3).select("td").get(3).text());
-                if(tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher a").size() > 0){
-                    data.put("profile_mainteacher", tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher").first().text() + "\n" +
-                                                    tr.get(1).select("#ctl00_ContentPlaceHolder1_oStudInfo_ClassTeacher a").first().attr("href").replace("mailto:", ""));
+                if(tr.get(1).select("#ctl00_MainContent_oStudInfo_ClassTeacher a").size() > 0){
+                    data.put("profile_mainteacher", tr.get(1).select("#ctl00_MainContent_oStudInfo_ClassTeacher").first().text() + "\n" +
+                                                    tr.get(1).select("#ctl00_MainContent_oStudInfo_ClassTeacher a").first().attr("href").replace("mailto:", ""));
                 }else{
                     data.put("profile_mainteacher", "");
                 }
@@ -243,22 +243,22 @@ public class Connect {
             //----------學期成績資料----------//
             //填入資料
             Map<String, String> datas = new HashMap<>();
-            datas.put("ctl00$ContentPlaceHolder1$ToolkitScriptManager1", "ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHolder1$AcadSeme");
-            datas.put("ctl00_ContentPlaceHolder1_ToolkitScriptManager1_HiddenField", document.select("#ctl00_ContentPlaceHolder1_ToolkitScriptManager1_HiddenField").first().attr("value"));
-            datas.put("ctl00_ContentPlaceHolder1_TabContainer1_ClientState", document.select("#ctl00_ContentPlaceHolder1_TabContainer1_ClientState").first().attr("value"));
-            datas.put("ctl00$ContentPlaceHolder1$TabContainer1$TabPanel2$ReportKind", "1");
+            datas.put("ctl00$MainContent$ToolkitScriptManager1", "ctl00$MainContent$UpdatePanel1|ctl00$MainContent$AcadSeme");
+            datas.put("ctl00_MainContent_ToolkitScriptManager1_HiddenField", document.select("#ctl00_MainContent_ToolkitScriptManager1_HiddenField").first().attr("value"));
+            datas.put("ctl00_MainContent_TabContainer1_ClientState", document.select("#ctl00_MainContent_TabContainer1_ClientState").first().attr("value"));
+            datas.put("ctl00$MainContent$TabContainer1$TabPanel2$ReportKind", "1");
             datas.put("__ASYNCPOST", "true");
-            datas.put("__EVENTTARGET", "ctl00$ContentPlaceHolder1$AcadSeme");
+            datas.put("__EVENTTARGET", "ctl00$MainContent$AcadSeme");
             datas.put("__EVENTARGUMENT", "");
             datas.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
             datas.put("__VIEWSTATE", document.select("#__VIEWSTATE").first().attr("value"));
             datas.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
             datas.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
-            datas.put("ctl00$ContentPlaceHolder1$AcadSeme", seme);
+            datas.put("ctl00$MainContent$AcadSeme", seme);
 
             //GET取得課表頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/StudentFile/Score/")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                     .method(Connection.Method.POST)
                     .cookies(cookiesCAS)
                     .data(datas);
@@ -266,7 +266,7 @@ public class Connect {
             Connection.Response response = con.execute();
             Document dom = Jsoup.parse(response.body());
 
-            result = dom.select("#ctl00_ContentPlaceHolder1_TabContainer1_TabPanel1 table");
+            result = dom.select("#ctl00_MainContent_TabContainer1_TabPanel1 table");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,14 +284,14 @@ public class Connect {
             //----------建立連線資料----------//
             //GET取得應修未修畢業學分頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Graduation/Score/StudGradCour.aspx")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                     .cookies(cookies);
 
-            Document document = con.get();
+            Document document = con.execute().parse();
 
             //----------驗證應修未修畢業學分頁面狀態----------//
-            String str = "#ctl00_ContentPlaceHolder1_oStudGradInfo_";
-            Element table = document.select("#ctl00_ContentPlaceHolder1_StudentData_Panel").first();
+            String str = "#ctl00_MainContent_oStudGradInfo_";
+            Element table = document.select("#ctl00_MainContent_StudentData_Panel").first();
             if(table == null){
                 status.put("status", "fail");
             }
@@ -391,8 +391,8 @@ public class Connect {
             //----------最新消息資料----------//
             //GET取得最新消息
             con = Jsoup.connect("https://www.yuntech.edu.tw/index.php/2019-07-25-11-32-12/2019-04-10-08-05-51/itemlist?start=" + start)
-                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
-            Document document = con.get();
+                       .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
+            Document document = con.execute().parse();
             Element el = document.select("#k2Container").first();
 
             for(Element card: el.select(".cardblock")) {
@@ -418,8 +418,8 @@ public class Connect {
             //----------焦點消息資料----------//
             //GET取得焦點消息
             con = Jsoup.connect("https://www.yuntech.edu.tw/index.php/2019-04-10-08-04-08")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
-            Document document = con.get();
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
+            Document document = con.execute().parse();
             Element el = document.select("#sp_list").first();
 
             for(Element card: el.select(".col-md-3")) {
@@ -443,8 +443,8 @@ public class Connect {
             //----------往火車站----------//
             //GET取得時刻表
             con = Jsoup.connect("https://ags.yuntech.edu.tw/index.php?option=com_content&task=view&id=1396&Itemid=547&from=News")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
-            Document document = con.get();
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
+            Document document = con.execute().bufferUp().parse();
 
             //存metadata
             Element el = document.select(".MsoNormalTable").first().select("thead").first();
@@ -480,8 +480,8 @@ public class Connect {
             //----------往雲科大----------//
             //GET取得時刻表
             con = Jsoup.connect("https://ags.yuntech.edu.tw/index.php?option=com_content&task=view&id=1396&Itemid=547&from=News")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
-            Document document = con.get();
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
+            Document document = con.execute().bufferUp().parse();
 
             //存metadata
             Element el = document.select(".MsoNormalTable").get(1).select("thead").first();
@@ -519,7 +519,7 @@ public class Connect {
             //----------建立連線資料----------//
             //GET取得查詢頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                     .method(Connection.Method.POST)
                     .data(datas);
             Connection.Response response = con.execute();
@@ -541,12 +541,12 @@ public class Connect {
             //----------取得課程資料----------//
             //GET取得課程頁面
             con = Jsoup.connect("https://webapp.yuntech.edu.tw/WebNewCAS/Course/QueryCour.aspx")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36")
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36")
                     .method(Connection.Method.POST)
                     .data((page>1)? queryCourseNext: datas);
             Connection.Response response = con.execute();
             Document document = Jsoup.parse(response.body());
-            Element el = document.select("#ctl00_ContentPlaceHolder1_Course_GridView").first();
+            Element el = document.select("#ctl00_MainContent_Course_GridView").first();
 
             //----------資料存入List----------//
             if(el.select("[class$='Row']").size() > 0){
@@ -582,20 +582,20 @@ public class Connect {
 
             //----------儲存下次頁面隱藏值----------//
             Map<String, String> item = new HashMap<>();
-            if(document.select("#ctl00_ContentPlaceHolder1_PageControl1_NextPage").first().hasAttr("href")){
+            if(document.select("#ctl00_MainContent_PageControl1_NextPage").first().hasAttr("href")){
                 queryCourseNext = new HashMap<>();
-                queryCourseNext.put("ctl00$ToolkitScriptManager1", "ctl00$ContentPlaceHolder1$UpdatePanel2|ctl00$ContentPlaceHolder1$PageControl1$NextPage");
+                queryCourseNext.put("ctl00$ToolkitScriptManager1", "ctl00$MainContent$UpdatePanel2|ctl00$MainContent$PageControl1$NextPage");
                 queryCourseNext.put("ctl00_ToolkitScriptManager1_HiddenField", ";;AjaxControlToolkit, Version=4.1.60919.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:zh-TW:ab75ae50-1505-49da-acca-8b96b908cb1a:f2c8e708:de1feab2:720a52bf:f9cec9bc:589eaa30:a67c2700:ab09e3fe:87104b7c:8613aea7:3202a5a2:be6fb298");
                 queryCourseNext.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
-                queryCourseNext.put("__EVENTTARGET", "ctl00$ContentPlaceHolder1$PageControl1$NextPage");
+                queryCourseNext.put("__EVENTTARGET", "ctl00$MainContent$PageControl1$NextPage");
                 queryCourseNext.put("__EVENTARGUMENT", document.select("#__EVENTARGUMENT").first().attr("value"));
                 queryCourseNext.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
                 queryCourseNext.put("__VIEWSTATE", document.select("#__VIEWSTATE").first().attr("value"));
                 queryCourseNext.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
                 queryCourseNext.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
-                queryCourseNext.put("ctl00$ContentPlaceHolder1$PageControl1$Pages", String.valueOf(page));
-                queryCourseNext.put("ctl00$ContentPlaceHolder1$PageControl1$PageSize", "20");
-                queryCourseNext.put("ctl00$ContentPlaceHolder1$Cour_Remark", "");
+                queryCourseNext.put("ctl00$MainContent$PageControl1$Pages", String.valueOf(page));
+                queryCourseNext.put("ctl00$MainContent$PageControl1$PageSize", "20");
+                queryCourseNext.put("ctl00$MainContent$Cour_Remark", "");
                 item.put("next", "true");
             }else{
                 item.put("next", "false");
