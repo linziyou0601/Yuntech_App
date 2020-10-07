@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Connect {
     public static Connection con;
@@ -549,8 +547,8 @@ public class Connect {
             Element el = document.select("#ctl00_MainContent_Course_GridView").first();
 
             //----------資料存入List----------//
-            if(el.select("[class$='Row']").size() > 0){
-                for (Element row: el.select("[class$='Row']")) {
+            if(el.select("tr[class$='Row']").size() > 0){
+                for (Element row: el.select("tr[class$='Row']")) {
                     Map<String, String> item = new HashMap<>();
                     item.put("Serial_No", row.select("td").get(0).text());
                     item.put("Curriculum_No", row.select("td").get(1).text());
@@ -568,9 +566,11 @@ public class Connect {
                     Element link = row.select("td").get(2).select("a").first();
                     if(link.hasAttr("href")){
                         String linkUrl = "";
-                        Pattern pattern = Pattern.compile("javascript:openwindow\\('(.*)'\\)");
+                        linkUrl = link.attr("href");
+                        /*Pattern pattern = Pattern.compile("javascript:openwindow\\('(.*)'\\)");
                         Matcher matcher = pattern.matcher(link.attr("href").replaceAll("&amp;", "&"));
-                        if(matcher.find()) linkUrl = matcher.group(1);
+                        if(matcher.find()) linkUrl = matcher.group(1);*/
+                        System.out.println(el.text());
                         item.put("Link", "https://webapp.yuntech.edu.tw" + linkUrl);
                     }else{
                         item.put("Link", "");

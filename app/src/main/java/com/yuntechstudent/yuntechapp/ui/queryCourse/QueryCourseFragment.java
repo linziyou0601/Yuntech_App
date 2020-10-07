@@ -158,7 +158,7 @@ public class QueryCourseFragment extends Fragment {
         Map<String, String> datas = new HashMap<>();
         //隱藏欄位
         datas.put("ctl00_ToolkitScriptManager1_HiddenField", ";;AjaxControlToolkit, Version=4.1.60919.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:zh-TW:ab75ae50-1505-49da-acca-8b96b908cb1a:de1feab2:f9cec9bc:35576c48:f2c8e708:720a52bf:589eaa30:a67c2700:ab09e3fe:87104b7c:8613aea7:3202a5a2:be6fb298;");
-        datas.put("ctl00$ToolkitScriptManager1", "ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHolder1$College");
+        datas.put("ctl00$ToolkitScriptManager1", "ctl00$MainContent$UpdatePanel1|ctl00$MainContent$College");
         datas.put("__LASTFOCUS", document.select("#__LASTFOCUS").first().attr("value"));
         datas.put("__EVENTTARGET", document.select("#__EVENTTARGET").first().attr("value"));
         datas.put("__EVENTARGUMENT", document.select("#__EVENTARGUMENT").first().attr("value"));
@@ -167,8 +167,8 @@ public class QueryCourseFragment extends Fragment {
         datas.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
         datas.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
         //學期、學院、學系
-        datas.put("ctl00$ContentPlaceHolder1$AcadSeme", ((Spinner) root.findViewById(R.id.queryCourse_AcadSeme)).getSelectedItem().toString().replaceAll("(學年第)|(學期)", ""));
-        datas.put("ctl00$ContentPlaceHolder1$College", queryCourseViewModel.getCollegesCode(((Spinner) root.findViewById(R.id.queryCourse_College)).getSelectedItem().toString()));
+        datas.put("ctl00$MainContent$AcadSeme", ((Spinner) root.findViewById(R.id.queryCourse_AcadSeme)).getSelectedItem().toString().replaceAll("(學年第)|(學期)", ""));
+        datas.put("ctl00$MainContent$College", queryCourseViewModel.getCollegesCode(((Spinner) root.findViewById(R.id.queryCourse_College)).getSelectedItem().toString()));
 
         //----------爬蟲取得資料----------//
         Thread a = new Thread(){
@@ -204,67 +204,67 @@ public class QueryCourseFragment extends Fragment {
         datas.put("__VIEWSTATEGENERATOR", document.select("#__VIEWSTATEGENERATOR").first().attr("value"));
         datas.put("__EVENTVALIDATION", document.select("#__EVENTVALIDATION").first().attr("value"));
         //學期、學院、學系
-        datas.put("ctl00$ContentPlaceHolder1$AcadSeme", ((Spinner) root.findViewById(R.id.queryCourse_AcadSeme)).getSelectedItem().toString().replaceAll("(學年第)|(學期)", ""));
-        datas.put("ctl00$ContentPlaceHolder1$College", queryCourseViewModel.getCollegesCode(((Spinner) root.findViewById(R.id.queryCourse_College)).getSelectedItem().toString()));
-        datas.put("ctl00$ContentPlaceHolder1$DeptCode", queryCourseViewModel.getDeptsCode(datas.get("ctl00$ContentPlaceHolder1$College"), ((Spinner) root.findViewById(R.id.queryCourse_DeptCode)).getSelectedItem().toString()));
+        datas.put("ctl00$MainContent$AcadSeme", ((Spinner) root.findViewById(R.id.queryCourse_AcadSeme)).getSelectedItem().toString().replaceAll("(學年第)|(學期)", ""));
+        datas.put("ctl00$MainContent$College", queryCourseViewModel.getCollegesCode(((Spinner) root.findViewById(R.id.queryCourse_College)).getSelectedItem().toString()));
+        datas.put("ctl00$MainContent$DeptCode", queryCourseViewModel.getDeptsCode(datas.get("ctl00$MainContent$College"), ((Spinner) root.findViewById(R.id.queryCourse_DeptCode)).getSelectedItem().toString()));
         //日夜間
-        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_0)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$DayNight$0", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_1)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$DayNight$1", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_2)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$DayNight$2", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_3)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$DayNight$3", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_0)).isChecked()) datas.put("ctl00$MainContent$DayNight$0", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_1)).isChecked()) datas.put("ctl00$MainContent$DayNight$1", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_2)).isChecked()) datas.put("ctl00$MainContent$DayNight$2", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_DayNight_3)).isChecked()) datas.put("ctl00$MainContent$DayNight$3", "on");
         //學制
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_0)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$0", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_1)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$1", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_2)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$2", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_3)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$3", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_4)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$4", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_5)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$EduSys$5", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_0)).isChecked()) datas.put("ctl00$MainContent$EduSys$0", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_1)).isChecked()) datas.put("ctl00$MainContent$EduSys$1", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_2)).isChecked()) datas.put("ctl00$MainContent$EduSys$2", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_3)).isChecked()) datas.put("ctl00$MainContent$EduSys$3", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_4)).isChecked()) datas.put("ctl00$MainContent$EduSys$4", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_EduSys_5)).isChecked()) datas.put("ctl00$MainContent$EduSys$5", "on");
         //類別
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_0)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$0", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_1)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$1", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_2)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$2", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_3)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$3", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_4)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$4", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_5)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$5", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_6)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$6", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_7)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$7", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_8)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$8", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_9)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$9", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_10)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$MajOp$10", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_0)).isChecked()) datas.put("ctl00$MainContent$MajOp$0", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_1)).isChecked()) datas.put("ctl00$MainContent$MajOp$1", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_2)).isChecked()) datas.put("ctl00$MainContent$MajOp$2", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_3)).isChecked()) datas.put("ctl00$MainContent$MajOp$3", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_4)).isChecked()) datas.put("ctl00$MainContent$MajOp$4", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_5)).isChecked()) datas.put("ctl00$MainContent$MajOp$5", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_6)).isChecked()) datas.put("ctl00$MainContent$MajOp$6", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_7)).isChecked()) datas.put("ctl00$MainContent$MajOp$7", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_8)).isChecked()) datas.put("ctl00$MainContent$MajOp$8", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_9)).isChecked()) datas.put("ctl00$MainContent$MajOp$9", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_MajOp_10)).isChecked()) datas.put("ctl00$MainContent$MajOp$10", "on");
         //課號、課名、教師
-        datas.put("ctl00$ContentPlaceHolder1$CurrentSubj",((EditText)root.findViewById(R.id.queryCourse_CurrentSubj)).getEditableText().toString());
-        datas.put("ctl00$ContentPlaceHolder1$SubjName",((EditText)root.findViewById(R.id.queryCourse_SubjName)).getEditableText().toString());
-        datas.put("ctl00$ContentPlaceHolder1$Instructor",((EditText)root.findViewById(R.id.queryCourse_Instructor)).getEditableText().toString());
+        datas.put("ctl00$MainContent$CurrentSubj",((EditText)root.findViewById(R.id.queryCourse_CurrentSubj)).getEditableText().toString());
+        datas.put("ctl00$MainContent$SubjName",((EditText)root.findViewById(R.id.queryCourse_SubjName)).getEditableText().toString());
+        datas.put("ctl00$MainContent$Instructor",((EditText)root.findViewById(R.id.queryCourse_Instructor)).getEditableText().toString());
         //星期
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_0)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$0", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_1)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$1", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_2)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$2", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_3)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$3", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_4)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$4", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_5)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$5", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_6)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Weeks$6", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_0)).isChecked()) datas.put("ctl00$MainContent$Weeks$0", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_1)).isChecked()) datas.put("ctl00$MainContent$Weeks$1", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_2)).isChecked()) datas.put("ctl00$MainContent$Weeks$2", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_3)).isChecked()) datas.put("ctl00$MainContent$Weeks$3", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_4)).isChecked()) datas.put("ctl00$MainContent$Weeks$4", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_5)).isChecked()) datas.put("ctl00$MainContent$Weeks$5", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Weeks_6)).isChecked()) datas.put("ctl00$MainContent$Weeks$6", "on");
         //節次
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_0)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$0", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_1)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$1", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_2)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$2", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_3)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$3", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_4)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$4", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_5)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$5", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_6)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$6", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_7)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$7", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_8)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$8", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_9)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$9", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_10)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$10", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_11)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$11", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_12)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$12", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_13)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$13", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_14)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$14", "on");
-        if(((Chip)root.findViewById(R.id.queryCourse_Sections_15)).isChecked()) datas.put("ctl00$ContentPlaceHolder1$Sections$15", "on");
-        datas.put("ctl00$ContentPlaceHolder1$TextBoxWatermarkExtender1_ClientState", "");
-        datas.put("ctl00$ContentPlaceHolder1$TextBoxWatermarkExtender2_ClientState", "");
-        datas.put("ctl00$ContentPlaceHolder1$TextBoxWatermarkExtender3_ClientState", "");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_0)).isChecked()) datas.put("ctl00$MainContent$Sections$0", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_1)).isChecked()) datas.put("ctl00$MainContent$Sections$1", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_2)).isChecked()) datas.put("ctl00$MainContent$Sections$2", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_3)).isChecked()) datas.put("ctl00$MainContent$Sections$3", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_4)).isChecked()) datas.put("ctl00$MainContent$Sections$4", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_5)).isChecked()) datas.put("ctl00$MainContent$Sections$5", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_6)).isChecked()) datas.put("ctl00$MainContent$Sections$6", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_7)).isChecked()) datas.put("ctl00$MainContent$Sections$7", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_8)).isChecked()) datas.put("ctl00$MainContent$Sections$8", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_9)).isChecked()) datas.put("ctl00$MainContent$Sections$9", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_10)).isChecked()) datas.put("ctl00$MainContent$Sections$10", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_11)).isChecked()) datas.put("ctl00$MainContent$Sections$11", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_12)).isChecked()) datas.put("ctl00$MainContent$Sections$12", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_13)).isChecked()) datas.put("ctl00$MainContent$Sections$13", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_14)).isChecked()) datas.put("ctl00$MainContent$Sections$14", "on");
+        if(((Chip)root.findViewById(R.id.queryCourse_Sections_15)).isChecked()) datas.put("ctl00$MainContent$Sections$15", "on");
+        datas.put("ctl00$MainContent$TextBoxWatermarkExtender1_ClientState", "");
+        datas.put("ctl00$MainContent$TextBoxWatermarkExtender2_ClientState", "");
+        datas.put("ctl00$MainContent$TextBoxWatermarkExtender3_ClientState", "");
         //查詢鈕
-        datas.put("ctl00$ContentPlaceHolder1$Submit","執行查詢");
+        datas.put("ctl00$MainContent$Submit","執行查詢");
 
         //----------爬蟲取得資料----------//
         Thread a = new Thread(){
