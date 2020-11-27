@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Yuntech_App.iml" filepath="$PROJECT_DIR$/.idea/modules/Yuntech_App.iml" group="Yuntech_App" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Yuntech App/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Yuntech_App.iml" filepath="$PROJECT_DIR$/.idea/modules/Yuntech_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Yuntech_App.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Yuntech_App.app.iml" />
     </modules>
   </component>
 </project>
